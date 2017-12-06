@@ -1,0 +1,10 @@
+- hosts: localhost
+  connection: local
+  become: yes
+  vars:
+    timezone: 'Asia/Tokyo'
+    mysql_user_name: 'nekoget'
+    mysql_user_passwd: 'codeigniter3_love'
+  roles:
+  - redis
+  - php
