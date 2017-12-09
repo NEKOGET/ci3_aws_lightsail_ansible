@@ -1,0 +1,6 @@
+---
+- name: redis server start
+  service: name=redis enabled=yes
+
+- name: http server start
+  service: name=httpd  enabled=yes
