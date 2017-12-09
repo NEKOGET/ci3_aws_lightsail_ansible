@@ -5,6 +5,8 @@
     timezone: 'Asia/Tokyo'
     mysql_user_name: 'nekoget'
     mysql_user_passwd: 'codeigniter3_love'
+    httpDocumentRoot: '/var/www/CodeIgniter/public/'
+    
   roles:
   - redis
   - php

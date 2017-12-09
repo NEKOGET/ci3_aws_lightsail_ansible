@@ -1,6 +1,26 @@
 ---
+
+  
+- name: CodeIgniter create project
+  command: composer create-project kenjis/codeigniter-composer-installer CodeIgniter chdir=/var/www/ creates=/var/www/CodeIgniter
+
+- name: Change owner ec2-user
+  command: chown ec2-user -R /var/www/CodeIgniter
+
+- name: Change　permission
+  command: chmod 777 /var/www/CodeIgniter
+  
+- name: Change permission /var/www/CodeIgniter/public/
+  command: chmod 777 /var/www/CodeIgniter/public/
+  
+- name: httd.conf
+  template: src=httpd.conf dest=/etc/httpd/conf/httpd.conf
+  
 - name: redis server start
-  service: name=redis enabled=yes
+  service: name=redis enabled=yes state=restarted
 
 - name: http server start
-  service: name=httpd  enabled=yes
+  service: name=httpd  enabled=yes state=restarted
+
+- name: create symbolic link
+  file: src=/var/www/CodeIgniter dest=/home/ec2-user/environment/CodeIgniter state=link

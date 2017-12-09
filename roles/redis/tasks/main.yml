@@ -2,7 +2,3 @@
 - name: redis install
   become: yes
   yum: name=redis enablerepo=epel,amzn-main
-- name: redis chkconfig
-  command: chkconfig redis on
-
-#chkconfig redis on
