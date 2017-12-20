@@ -1,4 +1,0 @@
----
-- name: redis install
-  become: yes
-  yum: name=redis enablerepo=epel,amzn-main

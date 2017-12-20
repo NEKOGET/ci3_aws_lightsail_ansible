@@ -1,6 +1,4 @@
 ---
-- name: uninstall php56
-  yum: name=php56 state=removed
 - name: install php71  php71 php71-cli php71-common php71-devel php71-gd php71-json php71-mbstring php71-mcrypt php71-mysqlnd php71-pdo php71-xml
   yum: name="{{item}}" state=latest
   with_items:
@@ -20,15 +18,40 @@
 - name: remi add sudo rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
   yum: name=http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
-- name: php71-php-pecl-zip php71-php-pecl-uuid php71-php-pecl-yaml php71-php-pecl-ssh2 --enablerepo=remi-php71,remi,epel
+- name: epel add
+  yum: name=epel-release
+
+- name: php71-php-pecl...
   yum: name="{{item}}" state=latest
-  enablerepo: remi-php71,remi,epel
+  enablerepo: remi-php71,remi,epel,amzn-main
   with_items:
    - php71-php-pecl-zip
    - php71-php-pecl-uuid
    - php71-php-pecl-yaml
    - php71-php-pecl-ssh2
-   - php71-redis
 
-- name: correct java version selected
-  alternatives: name=php path=/usr/bin/php-7.1
+- name: check composer
+  stat: path=/usr/bin/composer
+  register: composer_bin
+  tags: composer
+
+- block:
+  - name: composer download
+    get_url:
+      url: https://getcomposer.org/installer
+      dest: /tmp/installer
+
+  - name: install composer
+    shell: cat /tmp/installer | php -- --install-dir=/usr/bin
+
+  - name: rename composer
+    shell: mv /usr/bin/composer.phar /usr/bin/composer
+
+  - name: make composer executable
+    file:
+      path: /usr/bin/composer
+      mode: a+x
+      state: file
+
+  when: not composer_bin.stat.exists
+  tags: composer
