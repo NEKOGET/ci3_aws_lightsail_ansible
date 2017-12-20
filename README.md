@@ -1,4 +1,9 @@
-# ci3_aws_c9_ansible
-for AWS Cloud9 CodeIgniter 3 
+# ci3_aws_lightsail_ansible
 
+AWS lightsail 上で CodeIgniter3を動かすために作りました。
+ 
+php7.1
+mysql
+apache
+がインストールされます。
 
