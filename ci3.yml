@@ -5,5 +5,7 @@
     timezone: 'Asia/Tokyo'
     
   roles:
+  - mysql
   - php
+  - httpd
   - setting

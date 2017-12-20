@@ -1,0 +1,28 @@
+---
+- name: mysql install
+  yum: name=mysql state=latest
+
+- name: mysql-server install
+  yum: name=mysql-server state=latest
+
+- name: my.cnf set (utf8mb4)
+  template: src=my.cnf dest=/etc/my.cnf
+
+- name: mysql chkconfig
+  service: name=mysqld state=started enabled=yes
+
+- name: ansible setting
+  yum: name=MySQL-python27 state=latest
+
+#+-------------------------------------------+
+#| PASSWORD ('CodeIgniter_Love')             |
+#+-------------------------------------------+
+#| *7692D95A64FA3E4185B47EA1CC875C1C9B459B1B |
+#+-------------------------------------------+
+- name: "mysql user add" 
+  mysql_user:
+    name: "ci3_user"
+    password: '*7692D95A64FA3E4185B47EA1CC875C1C9B459B1B'
+    encrypted: yes
+    priv: '*.*:ALL'
+    state: present

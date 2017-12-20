@@ -1,7 +1,13 @@
 #!/bin/sh
 
-cd ${0%/*};
+cd `dirname $0`
 
-sudo pip install ansible
+if [ ! -f '/usr/local/bin/ansible' ]; then
+  sudo pip install ansible
+fi
 
-ansible-playbook ./ci3.yml  --connection=local
+echo "install python-devel"
+sudo yum -y install python-devel
+
+echo "ansible start"
+ansible-playbook -i ./hosts ./ci3.yml  --connection=local 

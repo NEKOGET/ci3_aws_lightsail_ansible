@@ -22,8 +22,7 @@
   yum: name=epel-release
 
 - name: php71-php-pecl...
-  yum: name="{{item}}" state=latest
-  enablerepo: remi-php71,remi,epel,amzn-main
+  yum: name="{{item}}" state=latest enablerepo=remi-php71,remi,epel,amzn-main
   with_items:
    - php71-php-pecl-zip
    - php71-php-pecl-uuid
